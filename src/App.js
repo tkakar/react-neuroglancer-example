@@ -1,9 +1,7 @@
+import React from 'react';
 import Neuroglancer from '@janelia-flyem/react-neuroglancer';
-
-import logo from './logo.svg';
-import './App.css';
-
-const viewerState = {
+import './App.css' //removed for bundling
+const defaultViewerState = {
   layers: {
     greyscale: {
       type: 'image',
@@ -22,17 +20,20 @@ const viewerState = {
   segments: [],
 };
 
-function App() {
+
+
+function NeuroglancerViewer({ viewerState = defaultViewerState, brainMapsClientId = "NOT_A_VALID_ID", onViewerStateChanged = null}) {
+  function handleOnViewerStateChanged(newState) {
+      onViewerStateChanged(newState);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-      <Neuroglancer viewerState={viewerState}  brainMapsClientId="NOT_A_VALID_ID" />
-    </div>
+      <Neuroglancer
+        viewerState={viewerState}
+        brainMapsClientId={brainMapsClientId}
+        onViewerStateChanged={handleOnViewerStateChanged}
+      />
   );
 }
 
-export default App;
+export default NeuroglancerViewer;

@@ -340,12 +340,12 @@ module.exports = function (webpackEnv) {
       strictExportPresence: true,
       rules: [
         // Handle node_modules packages that contain sourcemaps
-        shouldUseSourceMap && {
-          enforce: 'pre',
-          exclude: /@babel(?:\/|\\{1,2})runtime/,
-          test: /\.(js|mjs|jsx|ts|tsx|css)$/,
-          loader: require.resolve('source-map-loader'),
-        },
+        // shouldUseSourceMap && {
+        //   enforce: 'pre',
+        //   exclude: /@babel(?:\/|\\{1,2})runtime/,
+        //   test: /\.(js|mjs|jsx|ts|tsx|css)$/,
+        //   loader: require.resolve('source-map-loader'),
+        // },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -730,5 +730,18 @@ module.exports = function (webpackEnv) {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
+    output: {
+      filename: 'neuroglancer.bundle.js',
+      libraryTarget: isEnvProduction ? 'module' : 'umd',  
+      environment: {
+        module: isEnvProduction,
+      },
+    },
+  
+    experiments: {
+      outputModule: isEnvProduction,  
+    },
+
+   
   };
 };

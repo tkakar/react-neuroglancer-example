@@ -23,5 +23,6 @@
 }
 
 .neuroglancer-container {
-  flex: 1 1 auto;
+  position: inherit !important;
+  /*  flex: 1 1 auto;  not working */
 }
